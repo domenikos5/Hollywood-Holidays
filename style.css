@@ -1,0 +1,31 @@
+nav {
+    background-color: lightslategray;
+}
+
+.nav-title {
+    align-items: center;
+}
+
+footer {
+    bottom: 0;
+    width: 100%;  
+    position: absolute;     
+}
+
+.page-footer {
+    background-color: lightslategray;
+}
+
+.destination-container {
+    float: right;
+    width: 70%;
+}
+
+.movie-card {
+    float: left;
+}
+
+.movie-destination {
+    padding: 20px;
+    margin: 20px;
+}
