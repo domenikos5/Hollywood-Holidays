@@ -44,8 +44,12 @@ nav {
     height: 100%;
 }
 
-.dest-image {
+.valign-wrapper {
     height: 25%;
+}
+
+.dest-image {
+    height: 100%;
 }
 
 .responsive-img {
