@@ -3,41 +3,48 @@ nav {
     width: 100%;
 }
 
-.nav-title {
-    align-items: center;
-}
-
-footer {
-    bottom: 0;
-    width: 100%;  
-    position: absolute;     
-}
-
-.page-footer {
-    background-color: lightslategray;
+.header {
+    height: 30px;
     width: 100%;
-
 }
 
-/* .destination-container {
+.nav-content {
+    padding-left: 30px;
+}
+
+.input-field {
+    float: left;
+    padding-left: 20px;
+}
+
+.label-icon {
+    padding-left: 20px;
+}
+
+.searchBtn-container {
     float: right;
-    width: 70%;
 }
 
 .movie-destination {
-    padding: 20px;
-    margin: 20px;
-} */
-
-/* .row.col.card {
-    float: right;
-} */
-
-
-/* .destination-container {
-    float: right;
-} */
+    margin-bottom: 20px;
+}
 
 .movie-card {
     float: left;
+    margin: 30px;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+   }
+
+.page-footer {
+    background-color: lightslategray;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
 }
