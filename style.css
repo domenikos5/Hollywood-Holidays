@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 nav {
     background-color: lightslategray;
     width: 100%;
@@ -27,13 +31,96 @@ nav {
 
 .movie-destination {
     margin-bottom: 20px;
+    height: 500px;
 }
 
 .movie-card {
-    float: left;
     margin: 30px;
+    height: 100%;
 }
 
+
+.movie-summary-card {
+    height: 100%;
+}
+
+.dest-image {
+    height: 25%;
+}
+
+.responsive-img {
+    height: 25%;
+}
+
+.card-panel {
+    height: 30%;
+}
+
+.destination-card {
+    height: 100%; 
+}
+
+.card-panel {
+    height: 31%;
+}
+
+footer {
+    width: 100%;
+    
+}
+
+.page-footer {
+    background-color: lightslategray;
+    width: 100%;
+}
+
+/* nav {
+    background-color: lightslategray;
+    width: 100%;
+}
+
+.header {
+    height: 30px;
+    width: 100%;
+}
+
+.nav-content {
+    padding-left: 30px;
+}
+
+.input-field {
+    float: left;
+    padding-left: 20px;
+}
+
+.label-icon {
+    padding-left: 20px;
+}
+
+.searchBtn-container {
+    float: right;
+}
+
+.movie-destination {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+
+}
+
+
+.movie-card {
+    /* float: left;
+    width: 100vw; 
+    height: 50vh; 
+    margin: 30px;
+
+
+}
+
+.destination-card {
+  
+}
 
 footer {
     position: absolute;
@@ -47,4 +134,5 @@ footer {
     bottom: 0;
     width: 100%;
 
-}
+} */
+
