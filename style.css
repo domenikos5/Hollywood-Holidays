@@ -30,7 +30,6 @@ nav {
 }
 
 .movie-card {
-    float: left;
     margin: 30px;
 }
 
@@ -48,3 +47,66 @@ footer {
     width: 100%;
 
 }
+
+/* nav {
+    background-color: lightslategray;
+    width: 100%;
+}
+
+.header {
+    height: 30px;
+    width: 100%;
+}
+
+.nav-content {
+    padding-left: 30px;
+}
+
+.input-field {
+    float: left;
+    padding-left: 20px;
+}
+
+.label-icon {
+    padding-left: 20px;
+}
+
+.searchBtn-container {
+    float: right;
+}
+
+.movie-destination {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+
+}
+
+
+.movie-card {
+    /* float: left; */
+    width: 100vw; 
+    height: 50vh; 
+    margin: 30px;
+
+
+}
+
+.destination-card {
+  
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+   }
+
+.page-footer {
+    background-color: lightslategray;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+} */
+
