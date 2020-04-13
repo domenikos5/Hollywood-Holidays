@@ -78,6 +78,9 @@ footer {
     width: 100%;
 }
 
+.actors {
+    display: flex;
+}
 /* nav {
     background-color: lightslategray;
     width: 100%;
