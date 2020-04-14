@@ -1,9 +1,22 @@
 let apiKey = "976244ff-925d-4f0b-9392-8c3ddf3dec05";
 let wikiQuery = "https://en.wikipedia.org/w/api.php";
-
+let modal = $(".modal-self");
 let destination_card = $(".destination-card");
 
 
+function toggleModal() {
+    console.log("here");
+    console.log(modal.css("display"))
+    if(modal.css("display") === "none") {
+        modal.css("display", "block");
+    } else {
+        modal.css("display", "none");
+    }
+}
+function moreImagesInModal() {
+    toggleModal();
+
+}
 function searchWiki(searchTerm) {
     $.ajax({
         url: wikiQuery,
@@ -18,7 +31,7 @@ function searchWiki(searchTerm) {
             gsrlimit: 1,
 
             prop: "extracts|pageimages|images",
-            exchars: "300",
+            exchars: "400",
             exlimit: "max",
             explaintext: true,
             exintro: true,
@@ -30,7 +43,34 @@ function searchWiki(searchTerm) {
             imlimit: "10"
         },
         success: function(json) {
+            console.log(searchTerm)
             console.log(json)
+            let pages = json.query.pages;
+            
+            for(let i in pages) {
+                console.log(pages[i]);
+                let imgDiv = $(`<div col s2 dest-image>`);
+
+                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1">`);
+                if(pages[i].thumbnail) {
+                    imgDiv.append(`<img src="${pages[i].thumbnail.source}" class="square responsive-img">`);
+                    innerDiv.append(imgDiv);
+                } 
+                //might want to add another query call to api to get time
+        
+
+
+                innerDiv.append(`<div class="col s10"> 
+                                <h5 class="dest-name"> ${searchTerm} </h5>
+                                <span class="dest-summary black-text"> ${pages[i].extract} </span>
+                                </div>
+                            </div>
+                            `)
+
+                innerDiv.on("click", moreImagesInModal);
+                
+                destination_card.append(innerDiv);
+            }
         },
     })
 }
@@ -42,7 +82,6 @@ function displayLocations(locations) {
     for(let i = 0; i < length; i++) {
         searchWiki(locations[i].location);
     }
-
 }
 
 function createActors(actors) {
@@ -51,6 +90,7 @@ function createActors(actors) {
     let maxActorDisplay = 5;
     let length = actors.length > maxActorDisplay ? maxActorDisplay : actors.length;
     let div = $("<div class='actors card-content'>")
+
     for(let i = 0; i < length; i++) {
         let actor = $("<div class='actor'>");
         actor.html(`<img src="${actors[i].urlPhoto}">
@@ -67,15 +107,17 @@ function createActors(actors) {
 //Displaying information for movie-summary-card
 function addMovieInfo(movie) {
     let movieInfo = $(".movie-summary-card");
+    //checking if there is a URL to post
+    let trailer = movie.trailer.qualities.length > 0 !== null ? movie.trailer.qualities[0].videoURL : "";
+    //Check there is a poster. 
+    let poster = movie.urlPoster ? movie.urlPoster : "";
 
-    let trailer = movie.trailer.qualities[2].videoURL;
     //Use simple plot if plot is above 500 characters long / too long
     let plot = movie.plot.length > 500 ? movie.simplePlot : movie.plot; 
 
-    // <img src=${movie.urlPoster} width="100%">
     let card_div = $("<div class='card-image'>")
     card_div.append(`<div class="card-image">
-                        <video src="${trailer}" poster="${movie.urlPoster}" 
+                        <video src="${trailer}" poster="${poster}" 
                         width="100%" controls>
                     </div>
                     <div class="card-content ">
@@ -106,13 +148,7 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
         //Display movie-information
         addMovieInfo(movieData);
 
-
-
-        /*
-            data.filmingLocations: Array 
-            data.filmingLocations.location 
-            data.filmingLocations.remarks  have some extra information but some are less than useful
-        */
+        destination_card.empty();
         if(movieData.filmingLocations.length) {
             displayLocations(movieData.filmingLocations);
         } else {
@@ -122,25 +158,28 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
 })
 
 
-// let imagesSearch = function(pageID) {
-//     console.log({pageID})
-//     $.ajax({
-//         url: query,
-//         method: "GET",
-//         data: {
-//             "action": "query",
-//             "format": "json",
-//             "prop": "imageinfo",
-//             "iiprop": "url",
-//             "titles": pageID
-//         },
-//         success: function(json) {
-//             console.log(json);
-//             // query.pages["-1"].imageinfo[0].url
-//             //json.query.pages[key].imageInfo[url] . 
-//         }
-//     },)
+let imagesSearch = function(pageID) {
+    console.log({pageID})
+    $.ajax({
+        url: query,
+        method: "GET",
+        data: {
+            "action": "query",
+            "format": "json",
+            "prop": "imageinfo",
+            "iiprop": "url",
+            "titles": pageID
+        },
+        success: function(json) {
+            console.log(json);
+            // query.pages["-1"].imageinfo[0].url
+            //json.query.pages[key].imageInfo[url] . 
+        }
+    },)
 
-// }
+}
+
+$(".close-bar").on("click", toggleModal);
+$(".modal-self").on("click", toggleModal);
 
 // wikiApi();
