@@ -1,12 +1,11 @@
 let apiKey = "976244ff-925d-4f0b-9392-8c3ddf3dec05";
 let wikiQuery = "https://en.wikipedia.org/w/api.php";
 let modal = $(".modal-self");
+let modal_content = $(".content");
 let destination_card = $(".destination-card");
 
 
 function toggleModal() {
-    console.log("here");
-    console.log(modal.css("display"))
     if(modal.css("display") === "none") {
         modal.css("display", "block");
     } else {
@@ -15,8 +14,22 @@ function toggleModal() {
 }
 function moreImagesInModal() {
     toggleModal();
-
+    modal_content.text("");
+    let name = $(this).find(".dest-name").text();
+    let summary = $(this).find(".dest-summary").text();
+    let images = JSON.parse($(this).find(".col").attr("data-images"));
+    
+    modal_content.append(`<h3> ${name}</h3>
+                            <p> ${summary}</p>
+                        `)
+    
+    let image_div = $("<div class='image-div'>");   
+    images.forEach( image => {
+        imagesSearch(image.title, image_div);
+    })
+    modal_content.append(image_div);
 }
+
 function searchWiki(searchTerm) {
     $.ajax({
         url: wikiQuery,
@@ -59,8 +72,7 @@ function searchWiki(searchTerm) {
                 //might want to add another query call to api to get time
         
 
-
-                innerDiv.append(`<div class="col s10"> 
+                innerDiv.append(`<div class="col s10" data-images='${JSON.stringify(pages[i].images)}'> 
                                 <h5 class="dest-name"> ${searchTerm} </h5>
                                 <span class="dest-summary black-text"> ${pages[i].extract} </span>
                                 </div>
@@ -101,6 +113,7 @@ function createActors(actors) {
         `)
         div.append(actor);
     }
+    
     return div;
 }
 
@@ -108,7 +121,8 @@ function createActors(actors) {
 function addMovieInfo(movie) {
     let movieInfo = $(".movie-summary-card");
     //checking if there is a URL to post
-    let trailer = movie.trailer.qualities.length > 0 !== null ? movie.trailer.qualities[0].videoURL : "";
+    let trailer = movie.trailer.qualities.length !== null ? movie.trailer.qualities[0].videoURL : "";
+
     //Check there is a poster. 
     let poster = movie.urlPoster ? movie.urlPoster : "";
 
@@ -158,10 +172,9 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
 })
 
 
-let imagesSearch = function(pageID) {
-    console.log({pageID})
+let imagesSearch = function(pageID, image_div) {
     $.ajax({
-        url: query,
+        url: wikiQuery,
         method: "GET",
         data: {
             "action": "query",
@@ -170,13 +183,19 @@ let imagesSearch = function(pageID) {
             "iiprop": "url",
             "titles": pageID
         },
-        success: function(json) {
-            console.log(json);
+        success: function(response) {
+            console.log(response);
+            let pages = response.query.pages;
             // query.pages["-1"].imageinfo[0].url
             //json.query.pages[key].imageInfo[url] . 
+            for(let key in pages) {
+                console.log(pages[key]);
+                if(pages[key]) {
+                    image_div.append(`<img src='${pages[key].imageinfo[0].url}' width="30%">`);
+                }
+            }
         }
     },)
-
 }
 
 $(".close-bar").on("click", toggleModal);
