@@ -1,4 +1,4 @@
-We are building this app for all travel enthusiasts that are currently stuck at homes during this Covid-19 travel restrictions.
+This app is for all travel enthusiasts that are currently stuck at home during this Covid-19 travel restrictions.
 
 One of the goals of this app is to satisfy travel cravings, provide entertainment while stuck at home and to look for possible destinations, as seen in the movies, once travel bans are lifted across the globe.
 
