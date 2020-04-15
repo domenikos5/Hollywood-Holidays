@@ -10,6 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Hollywood Holidays</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 
 <!--Header-->
@@ -28,8 +30,8 @@
         <div class="nav-wrapper">
             <form>
                 <div class="input-field">
-                    <input class="search" type="search" required>
-                    <label class="label-icon" for="search"><i class="material-icons">search</i> </label>
+                    <input class="search" type="search" placeholder="Search"required>
+                    <!-- <label class="label-icon" for="search"><i class="material-icons">search</i> </label> -->
                 </div>
                 <div class="searchBtn-Container">
                     <button class="btn waves-effect waves-light searchBtn" type="submit" name="action">Search</button>
@@ -66,8 +68,8 @@
             <!--First Destination card-->
 
             <div class="destination-card col s12 m8 l9">
+
                 <div class="card-panel grey lighten-5 z-depth-1">
-                    <div class="row valign-wrapper">
                         <div class="col s2 dest-image">
                             <img src="https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg"
                                 alt="" class="square responsive-img">
@@ -78,13 +80,12 @@
                                 Hello!
                             </span>
                         </div>
-                    </div>
                 </div>
 
                 <!--Second Destination card-->
 
                 <div class="card-panel grey lighten-5 z-depth-1">
-                    <div class="row valign-wrapper">
+
                         <div class="col s2 dest-image">
                             <img src="https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg"
                                 alt="" class="square responsive-img">
@@ -95,70 +96,33 @@
                                 Hello!
                             </span>
                         </div>
-                    </div>
                 </div>
 
                 <!--Third Destination card-->
 
                 <div class="card-panel grey lighten-5 z-depth-1">
-                    <div class="row valign-wrapper">
-                        <div class="col s2 dest-image">
-                            <img src="https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg"
-                                alt="" class="square responsive-img">
-                        </div>
-                        <div class=" col s10">
-                            <h5 class="dest-name">Destination Location</h5>
-                            <span class="dest-summary black-text">
-                                Hello!
-                            </span>
-                        </div>
+                    <div class="col s2 dest-image">
+                        <img src="https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg"
+                            alt="" class="square responsive-img">
+                    </div>
+                    <div class=" col s10">
+                        <h5 class="dest-name">Destination Location</h5>
+                        <span class="dest-summary black-text">
+                            Hello!
+                        </span>
                     </div>
                 </div>
-
-
             </div>
-
-
-            <!--Second Destination card-->
-
-            <!-- <div class="col s12 m8 l9">
-                <div class="card-panel grey lighten-5 z-depth-1">
-                    <div class="row valign-wrapper">
-                        <div class="col s2 dest-img">
-                            <img src="https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg"
-                                alt="" class="square responsive-img">
-                        </div>
-                        <div class="col s10">
-                            <span class="black-text">
-                                This is a square image. Add the "circle" class to it to make it appear circular.
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-
-            <!--Third Destination card-->
-            <!-- <div class="col s12 m8 l9">
-                <div class="card-panel grey lighten-5 z-depth-1">
-                    <div class="row valign-wrapper">
-                        <div class="col s2 dest-image">
-                            <img src="https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg"
-                                alt="" class="square responsive-img">
-                        </div>
-                        <div class="col s10">
-                            <span class="black-text">
-                                This is a square image. Add the "circle" class to it to make it appear circular.
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-
         </div>
-
     </div>
+      <!-- Modal Structure -->
+    <div id="" class="modal-self">
+        <div class="content">
+            <div class="close-bar">&times;</div> 
+
+            dss
+        </div>
+    </div> <!-- End of modal -->
 
     <footer class="page-footer">
             <div class="row">
@@ -178,6 +142,8 @@
                 © 2020 Designed by Nickelodeon
         </div>
     </footer>
+
+    <script src="index.js"></script>
 
 </body>
 
