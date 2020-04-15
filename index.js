@@ -153,7 +153,9 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
     $.ajax({
         url: queryString,
         method: "GET",
-        header: {"Access-Control-Allow-Origin": "*"}
+        // headers: {"Access-Control-Allow-Origin": "*"}
+        crossDomain: true,
+        dataType: "json",
     }).then(function(response){
 
         //Check if response is good
