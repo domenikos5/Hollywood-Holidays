@@ -55,7 +55,7 @@ nav {
     top: 0;
     background-color:rgba(0,0,0,0.4);
     z-index: 1;
-    overflow: auto
+    overflow: auto;
     height: 100%
 }
 
