@@ -71,13 +71,34 @@ nav {
     left: 20%;
     top: 10%;
     padding: 1% 3%;
-    opacity: 1;
+    border-radius: 10px;
 
 }
 .close-bar {
     display: flex;
     flex-direction: row-reverse;
     font-size: 2em;
+}
+
+.img-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: auto;
+    justify-content: space-around;
+    align-items: flex-end;
+
+}
+
+.single-img {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: auto;
+    flex-basis: 48%;    
+}
+.name {
+    width: 100%;
+    word-break: break-word; 
 }
 /* .movie-summary-card {
     height: 100%;
@@ -102,14 +123,13 @@ nav {
 .destination-card {
     height: 100%; 
 }
-
-.card-panel {
-    height: 31%;
-} */
+*/
+.card-panel:hover {
+    background-color: #26a69a !important;
+} 
 
 footer {
     width: 100%;
-    
 }
 
 .page-footer {
@@ -126,67 +146,8 @@ ul {
 ul li {
     margin: 5%;
 }
-/* nav {
-    background-color: lightslategray;
-    width: 100%;
-}
-
-.header {
-    height: 30px;
-    width: 100%;
-}
-
-.nav-content {
-    padding-left: 30px;
-}
-
-.input-field {
-    float: left;
-    padding-left: 20px;
-}
-
-.label-icon {
-    padding-left: 20px;
-}
-
-.searchBtn-container {
-    float: right;
-}
-
-.movie-destination {
-    margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-
-}
 
 
-.movie-card {
-    /* float: left;
-    width: 100vw; 
-    height: 50vh; 
-    margin: 30px;
-
-
-}
-
-.destination-card {
-  
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-   }
-
-.page-footer {
-    background-color: lightslategray;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-
-} */
 
 @media only screen and (max-width: 600px){
     .movie-destination {
@@ -197,6 +158,20 @@ footer {
     ::-webkit-scrollbar{
         display:none;
     }
+    .single-img {
+        flex-basis: 100%;
+    }
+    .content {
+        width: 90%;
+        left: 5%;
+    }
+    ul {
+        margin: 0;
+    }
+    ul li {
+        margin: 0 5px;
+    }
+
 }
 
 .page-footer {
