@@ -75,8 +75,7 @@ nav {
 
 }
 .close-bar {
-    display: flex;
-    flex-direction: row-reverse;
+    float: right;
     font-size: 2em;
 }
 
@@ -147,7 +146,11 @@ ul li {
     margin: 5%;
 }
 
-
+.close-bar:hover {
+    /* font-size: 2.5em; */
+    text-shadow: 2px 2px 5px grey;
+    color: red;
+}
 
 @media only screen and (max-width: 600px){
     .movie-destination {

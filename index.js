@@ -3,7 +3,7 @@ let wikiQuery = "https://en.wikipedia.org/w/api.php";
 let modal = $(".modal-self");
 let modal_content = $(".content");
 let movie_destination = $(".movie-destination");
-
+let herokuProxy = "https://fathomless-hollows-68629.herokuapp.com/";
 
 function toggleModal() {
     if(modal.css("display") === "none") {
@@ -18,7 +18,7 @@ function moreImagesInModal() {
     modal_content.text("");
     let name = $(this).find(".dest-name").text();
     let summary = $(this).find(".dest-summary").text();
-    
+    modal_content.append(`<div> <span class="close-bar">&times;</span></div>`); 
 
     let images = JSON.parse($(this).attr("data-images"));
     modal_content.append(`  <h3> ${name}</h3>
@@ -31,7 +31,6 @@ function moreImagesInModal() {
         if (!image.title.includes(".svg"))
             imagesSearch(image.title, image_div);
     })
-    model_content.append(`<div class="close-bar">&times;</div>`);
     modal_content.append(image_div);
 }
 
@@ -151,7 +150,7 @@ function addMovieInfo(movie) {
 $(".searchBtn").on("click", function() {
     event.preventDefault();
     let movieName = $(".search").val();
-    let queryString = `https://www.myapifilms.com/imdb/idIMDB?title=${movieName}&token=${apiKey}&\
+    let queryString = `https://fathomless-hollows-68629.herokuapp.com/https://www.myapifilms.com/imdb/idIMDB?title=${movieName}&token=${apiKey}&\
 format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actors=1&fullSize=1&filmingLocations=2`
         
     $.ajax({
