@@ -2,9 +2,8 @@ let apiKey = "976244ff-925d-4f0b-9392-8c3ddf3dec05";
 let wikiQuery = "https://en.wikipedia.org/w/api.php";
 let modal = $(".modal-self");
 let modal_content = $(".content");
-let destination_card = $(".destination-card");
-
-
+let movie_destination = $(".movie-destination");
+let herokuProxy = "https://fathomless-hollows-68629.herokuapp.com/";
 
 function toggleModal() {
     if(modal.css("display") === "none") {
@@ -19,7 +18,7 @@ function moreImagesInModal() {
     modal_content.text("");
     let name = $(this).find(".dest-name").text();
     let summary = $(this).find(".dest-summary").text();
- 
+    modal_content.append(`<div> <span class="close-bar">&times;</span></div>`); 
 
     let images = JSON.parse($(this).attr("data-images"));
     modal_content.append(`  <h3> ${name}</h3>
@@ -32,11 +31,10 @@ function moreImagesInModal() {
         if (!image.title.includes(".svg"))
             imagesSearch(image.title, image_div);
     })
-
     modal_content.append(image_div);
 }
 
-function searchWiki(searchTerm) {
+function searchWiki(searchTerm, destination_card) {
     $.ajax({
         url: wikiQuery,
         method: "GET",
@@ -78,7 +76,6 @@ function searchWiki(searchTerm) {
                                 <h5 class="dest-name"> ${searchTerm} </h5>
                                 <span class="dest-summary black-text"> ${pages[i].extract} </span>
                                 </div>
-                            </div>
                             `)
 
                 innerDiv.on("click", moreImagesInModal);
@@ -92,10 +89,11 @@ function searchWiki(searchTerm) {
 function displayLocations(locations) {
     //each location call wiki for wiki page
     let length = locations.length < 10 ? locations.length : 10;
-    
+    let destination_card = $("<div class='destination-card col s12 m8 l9'>");
     for(let i = 0; i < length; i++) {
-        searchWiki(locations[i].location);
+        searchWiki(locations[i].location, destination_card);
     }
+    return destination_card;
 }
 
 function createActors(actors) {
@@ -121,9 +119,10 @@ function createActors(actors) {
 
 //Displaying information for movie-summary-card
 function addMovieInfo(movie) {
-    let movieInfo = $(".movie-summary-card");
+    
+    let movieInfo = $("<div class='movie-summary-card col s12 m4 l3'>");
     //checking if there is a URL to post
-    let trailer = movie.trailer.qualities ? movie.trailer.qualities[0].videoURL : "";
+    let trailer = movie.trailer.qualities ? movie.trailer.qualities[1].videoURL : "";
 
     //Check there is a poster. 
     let poster = movie.urlPoster ? movie.urlPoster : "";
@@ -132,6 +131,7 @@ function addMovieInfo(movie) {
     let plot = movie.plot.length > 500 ? movie.simplePlot : movie.plot; 
 
     let card_div = $("<div class='card-image'>")
+   
     card_div.append(`<div class="card-image">
                         <video src="${trailer}" poster="${poster}" 
                         width="100%" controls>
@@ -143,42 +143,39 @@ function addMovieInfo(movie) {
 
     card_div.append(createActors(movie.actors));
 
-    movieInfo.html("<div class='card'></div>").append(card_div);
-
+    movieInfo.append(card_div);
+    
+    return movieInfo;
 }
 $(".searchBtn").on("click", function() {
     event.preventDefault();
     let movieName = $(".search").val();
-    let queryString = `https://www.myapifilms.com/imdb/idIMDB?title=${movieName}&token=${apiKey}&\
+    let queryString = `https://fathomless-hollows-68629.herokuapp.com/https://www.myapifilms.com/imdb/idIMDB?title=${movieName}&token=${apiKey}&\
 format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actors=1&fullSize=1&filmingLocations=2`
         
     $.ajax({
         url: queryString,
         method: "GET",
-        // headers: {"Access-Control-Allow-Origin": "https://www.myapifilms.com", 
-        //         'Access-Control-Allow-Credentials': 'true'}
 
-        // headers: {"Access-Control-Allow-Origin": "*"}
-        // crossDomain: true,
-        // dataType: "json",
     }).then(function(response){
 
         //Check if response is good
-        console.log(response);
         let movieData = response.data.movies[0];
-        
-        //Display movie-information
-        addMovieInfo(movieData);
+        let movieCard = $("<div class='row movie-card'>");        
 
-        destination_card.empty();
+        //Display movie-information
+        let movieInfo = addMovieInfo(movieData);
+
+        movieCard.append(movieInfo);
         if(movieData.filmingLocations.length) {
-            displayLocations(movieData.filmingLocations);
+            movieCard.append(displayLocations(movieData.filmingLocations));
         } else {
             displayLocations(["narnia"]);
         }
+        movie_destination.html(movieCard);
+        
     });
 })
-
 
 let imagesSearch = function(pageID, image_div) {
     $.ajax({
@@ -193,8 +190,7 @@ let imagesSearch = function(pageID, image_div) {
         },
         success: function(response) {
             let pages = response.query.pages;
-            // query.pages["-1"].imageinfo[0].url
-            //json.query.pages[key].imageInfo[url] . 
+
             for(let key in pages) {
                 //remove FILE: and file extension from .title
                 let name = pages[key].title.slice(5, -4);
