@@ -5,6 +5,7 @@ let modal_content = $(".content");
 let destination_card = $(".destination-card");
 
 
+
 function toggleModal() {
     if(modal.css("display") === "none") {
         modal.css("display", "block");
@@ -12,21 +13,26 @@ function toggleModal() {
         modal.css("display", "none");
     }
 }
+
 function moreImagesInModal() {
     toggleModal();
     modal_content.text("");
     let name = $(this).find(".dest-name").text();
     let summary = $(this).find(".dest-summary").text();
-    let images = JSON.parse($(this).find(".col").attr("data-images"));
-    
-    modal_content.append(`<h3> ${name}</h3>
+ 
+
+    let images = JSON.parse($(this).attr("data-images"));
+    modal_content.append(`  <h3> ${name}</h3>
                             <p> ${summary}</p>
                         `)
     
-    let image_div = $("<div class='image-div'>");   
+    let image_div = $("<div class='img-div'>");   
     images.forEach( image => {
-        imagesSearch(image.title, image_div);
+        //check if file extension is .svg 
+        if (!image.title.includes(".svg"))
+            imagesSearch(image.title, image_div);
     })
+
     modal_content.append(image_div);
 }
 
@@ -56,23 +62,19 @@ function searchWiki(searchTerm) {
             imlimit: "10"
         },
         success: function(json) {
-            console.log(searchTerm)
-            console.log(json)
+ 
             let pages = json.query.pages;
             
             for(let i in pages) {
-                console.log(pages[i]);
-                let imgDiv = $(`<div col s2 dest-image>`);
 
-                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1">`);
+                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1" data-images='${JSON.stringify(pages[i].images)}'>`);
+                let imgDiv = $(`<div class="col s2 dest-image">`);
                 if(pages[i].thumbnail) {
                     imgDiv.append(`<img src="${pages[i].thumbnail.source}" class="square responsive-img">`);
                     innerDiv.append(imgDiv);
-                } 
-                //might want to add another query call to api to get time
-        
+                }         
 
-                innerDiv.append(`<div class="col s10" data-images='${JSON.stringify(pages[i].images)}'> 
+                innerDiv.append(`<div class="col s10" '> 
                                 <h5 class="dest-name"> ${searchTerm} </h5>
                                 <span class="dest-summary black-text"> ${pages[i].extract} </span>
                                 </div>
@@ -121,7 +123,7 @@ function createActors(actors) {
 function addMovieInfo(movie) {
     let movieInfo = $(".movie-summary-card");
     //checking if there is a URL to post
-    let trailer = movie.trailer.qualities.length !== null ? movie.trailer.qualities[0].videoURL : "";
+    let trailer = movie.trailer.qualities ? movie.trailer.qualities[0].videoURL : "";
 
     //Check there is a poster. 
     let poster = movie.urlPoster ? movie.urlPoster : "";
@@ -153,7 +155,10 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
     $.ajax({
         url: queryString,
         method: "GET",
-        headers: {"Access-Control-Allow-Origin": "*"}
+        // headers: {"Access-Control-Allow-Origin": "https://www.myapifilms.com", 
+        //         'Access-Control-Allow-Credentials': 'true'}
+
+        // headers: {"Access-Control-Allow-Origin": "*"}
         // crossDomain: true,
         // dataType: "json",
     }).then(function(response){
@@ -169,7 +174,7 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
         if(movieData.filmingLocations.length) {
             displayLocations(movieData.filmingLocations);
         } else {
-            console.log("movie does not have filing location/ Narnia?")
+            displayLocations(["narnia"]);
         }
     });
 })
@@ -187,14 +192,14 @@ let imagesSearch = function(pageID, image_div) {
             "titles": pageID
         },
         success: function(response) {
-            console.log(response);
             let pages = response.query.pages;
             // query.pages["-1"].imageinfo[0].url
             //json.query.pages[key].imageInfo[url] . 
             for(let key in pages) {
-                console.log(pages[key]);
+                //remove FILE: and file extension from .title
+                let name = pages[key].title.slice(5, -4);
                 if(pages[key]) {
-                    image_div.append(`<img src='${pages[key].imageinfo[0].url}' width="30%">`);
+                    image_div.append(`<div class="single-img"> <img src='${pages[key].imageinfo[0].url}' width="100%"> <div class='name'> ${name} </div> </div>`);
                 }
             }
         }
