@@ -38,9 +38,8 @@ function moreImagesInModal() {
 
 function searchWiki(searchTerm, destination_card) {
     $.ajax({
-        url: wikiQuery,
+        url: `${herokuProxy}${wikiQuery}`,
         method: "GET",
-        dataType: "jsonp",
         data: {
             action: "query",
             format: "json",
@@ -156,12 +155,13 @@ function addMovieInfo(movie) {
 $(".searchBtn").on("click", function() {
     event.preventDefault();
     let movieName = $(".search").val();
-    let queryString = `https://fathomless-hollows-68629.herokuapp.com/https://www.myapifilms.com/imdb/idIMDB?title=${movieName}&token=${apiKey}&\
+    let queryString = `${herokuProxy}https://www.myapifilms.com/imdb/idIMDB?title=${movieName}&token=${apiKey}&\
 format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actors=1&fullSize=1&filmingLocations=2`
         
     $.ajax({
         url: queryString,
         method: "GET",
+        headers: {"Access-Control-Allow-Origin": "*"}
 
     }).then(function(response){
 
@@ -195,7 +195,7 @@ function displayError(msg){
 }
 let imagesSearch = function(pageID, image_div) {
     $.ajax({
-        url: wikiQuery,
+        url: `${herokuProxy}${wikiQuery}`,
         method: "GET",
         data: {
             "action": "query",
