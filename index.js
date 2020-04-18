@@ -64,8 +64,7 @@ function searchWiki(searchTerm, destination_card) {
             let pages = json.query.pages;
             
             for(let i in pages) {
-
-                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1" data-images='${JSON.stringify(pages[i].images)}'>`);
+                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1" data-images='${JSON.stringify(pages[i].images).replace(/'/g, `\\"`)}'>`);
                 let imgDiv = $(`<div class="col s2 dest-image">`);
                 if(pages[i].thumbnail) {
                     imgDiv.append(`<img src="${pages[i].thumbnail.source}" class="square responsive-img">`);
