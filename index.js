@@ -60,7 +60,9 @@ function searchWiki(searchTerm, destination_card) {
             imlimit: "10"
         },
         success: function(json) {
- 
+            console.log(json);
+            if(json.error)
+                return;
             let pages = json.query.pages;
             
             for(let i in pages) {
@@ -88,6 +90,7 @@ function searchWiki(searchTerm, destination_card) {
 function displayLocations(locations) {
     //each location call wiki for wiki page
     let length = locations.length < 10 ? locations.length : 10;
+
     let destination_card = $("<div class='destination-card col s12 m8 l9'>");
     for(let i = 0; i < length; i++) {
         searchWiki(locations[i].location, destination_card);
@@ -127,7 +130,9 @@ function addMovieInfo(movie) {
     let poster = movie.urlPoster ? movie.urlPoster : "";
 
     //Use simple plot if plot is above 500 characters long / too long
-    let plot = movie.plot.length > 500 ? movie.simplePlot : movie.plot; 
+    let plot = 0;
+    if(movie.plot)
+        plot = movie.plot.length > 500 ? movie.simplePlot : movie.plot; 
 
     let card_div = $("<div class='card-image'>")
    
@@ -159,6 +164,7 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
     }).then(function(response){
 
         //Check if response is good
+        console.log(response);
         let movieData = response.data.movies[0];
         let movieCard = $("<div class='row movie-card'>");        
 
@@ -166,16 +172,22 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
         let movieInfo = addMovieInfo(movieData);
 
         movieCard.append(movieInfo);
-        if(movieData.filmingLocations.length) {
+        if(movieData.filmingLocations) {
             movieCard.append(displayLocations(movieData.filmingLocations));
         } else {
-            displayLocations(["narnia"]);
+            displayError("No filming location found.");
         }
         movie_destination.html(movieCard);
         
     });
 })
 
+function displayError(msg){
+
+    modal_content.html(`<div> <span class="close-bar">&times;</span></div>
+                        <h2> ${msg}</h2>`)
+    toggleModal();
+}
 let imagesSearch = function(pageID, image_div) {
     $.ajax({
         url: wikiQuery,
