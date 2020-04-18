@@ -31,9 +31,7 @@ nav {
 
 .movie-destination {
     margin-bottom: 20px;
-    /* height: 500px; */
     display: flex;
-    /* overflow: auto; */
 }
 
 .movie-card {
@@ -99,30 +97,7 @@ nav {
     width: 100%;
     word-break: break-word; 
 }
-/* .movie-summary-card {
-    height: 100%;
-}
 
-.valign-wrapper {
-    height: 25%;
-}
-
-.dest-image {
-    height: 100%;
-}
-
-.responsive-img {
-    height: 25%;
-}
-
-.card-panel {
-    height: 30%;
-}
-
-.destination-card {
-    height: 100%; 
-}
-*/
 .card-panel:hover {
     background-color: #26a69a !important;
 } 
@@ -147,7 +122,6 @@ ul li {
 }
 
 .close-bar:hover {
-    /* font-size: 2.5em; */
     text-shadow: 2px 2px 5px grey;
     color: red;
 }

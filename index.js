@@ -15,9 +15,11 @@ function toggleModal() {
 
 function moreImagesInModal() {
     toggleModal();
-    modal_content.text("");
+
     let name = $(this).find(".dest-name").text();
-    let summary = $(this).find(".dest-summary").text();
+    let summary = $(this).find(".dest-summary").text();    
+    
+    modal_content.empty();
     modal_content.append(`<div> <span class="close-bar">&times;</span></div>`); 
 
     let images = JSON.parse($(this).attr("data-images"));
@@ -55,18 +57,18 @@ function searchWiki(searchTerm, destination_card) {
 
             piprop: 'thumbnail',
             pilimit: 'max',
-            pithumbsize: 200,
-            //probably only want to save this information for later searching
+            pithumbsize: 300,
             imlimit: "10"
         },
         success: function(json) {
-            console.log(json);
             if(json.error)
                 return;
             let pages = json.query.pages;
             
             for(let i in pages) {
-                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1" data-images='${JSON.stringify(pages[i].images).replace(/'/g, `\\"`)}'>`);
+                //.replaced is used to let html know that ' should be there and not a signal for end of string.
+                let innerDiv = $(`<div class="card-panel grey lighten-5 z-depth-1" 
+                                   data-images='${JSON.stringify(pages[i].images).replace(/'/g, `\\"`)}'>`);
                 let imgDiv = $(`<div class="col s2 dest-image">`);
                 if(pages[i].thumbnail) {
                     imgDiv.append(`<img src="${pages[i].thumbnail.source}" class="square responsive-img">`);
@@ -163,8 +165,11 @@ format=json&language=en-us&aka=0&filter=2&exactFilter=0&limit=1&trailers=1&actor
 
     }).then(function(response){
 
-        //Check if response is good
-        console.log(response);
+        if(response.error) {
+            displayError("Unable to find movie");
+            return;
+        }
+
         let movieData = response.data.movies[0];
         let movieCard = $("<div class='row movie-card'>");        
 
@@ -216,4 +221,3 @@ let imagesSearch = function(pageID, image_div) {
 $(".close-bar").on("click", toggleModal);
 $(".modal-self").on("click", toggleModal);
 
-// wikiApi();
