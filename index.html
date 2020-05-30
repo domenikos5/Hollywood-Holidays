@@ -1,43 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
     <title>Hollywood Holidays</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 </head>
-
-<!--Header-->
-<Header>
-    <nav class="nav-extended">
-        <div class="nav-content">
-            <span class="nav-title">Hollywood Holidays</span>
-        </div>
-    </nav>
-</Header>
-
 <body>
-
+    <header class="header">
+         Hollywood Holidays 
+    </header>
     <!--Search Bar-->
-    <nav>
-        <div class="nav-wrapper">
-            <form>
-                <div class="input-field">
-                    <input class="search" type="search" placeholder="Search"required>
-                </div>
-                <div class="searchBtn-Container">
-                    <button class="btn waves-effect waves-light searchBtn" type="submit" name="action">Search</button>
-                </div>
-            </form>
-        </div>
-    </nav>
+    <div class="nav-wrapper">
+        <form>
+            <input class="search" type="search" placeholder="Place you want to see" required>
+            <button class="btn waves-effect waves-light searchBtn" type="submit" name="action">Search</button>
+        </form>
+    </div>
 
     <!--Movie Summary Card-->
     <div class="movie-destination">
@@ -54,27 +35,19 @@
     </div> <!-- End of modal -->
 
     <footer class="page-footer">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Hello!</h5>
-                    <p class="grey-text text-lighten-4">We are here to satisfy your travel itch!</p>
-                </div>
-                <div class="col l3 offset-l2 s12">
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="https://github.com/leoNle">Leo</a></li>
-                        <li><a class="grey-text text-lighten-3" href="https://github.com/domenikos5">Dominador</a></li>
-                        <li><a class="grey-text text-lighten-3" href="https://github.com/nicolechai1028">Nicole</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="footer-info">
+                <h5 class="white-text">Hello!</h5>
+                <p class="grey-text text-lighten-4">We are here to satisfy your travel itch!</p>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/leoNle">Leo</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/domenikos5">Dominador</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/nicolechai1028">Nicole</a></li>
+                </ul>
+        </div>
         <div class="footer-copyright ">
                 © 2020 Designed by Nickelodeon
         </div>
     </footer>
-
     <script src="index.js"></script>
-
 </body>
-
-
 </html>
